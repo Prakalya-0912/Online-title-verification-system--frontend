@@ -19,7 +19,7 @@ function TitleSubmission() {
 
     try {
 
-      const response = await fetch("https://online-title-verification-system-backend.onrender.com/api/titles/verify") {
+      const response = await fetch("https://online-title-verification-system-backend.onrender.com/api/titles/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
