@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
+const API_URL = "https://online-title-verification-system-backend.onrender.com";
+
 function App() {
   const [titleName, setTitleName] = useState("");
   const [message, setMessage] = useState("");
@@ -9,13 +11,15 @@ function App() {
   const verifyTitle = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/titles/verify",
+        `${API_URL}/api/titles/verify`,
         {
           titleName: titleName,
         }
       );
+
       setMessage(response.data);
-    } catch  {
+    } catch (error) {
+      console.error(error);
       setMessage("Error while verifying title");
     }
   };
@@ -23,13 +27,15 @@ function App() {
   const addTitle = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/titles",
+        `${API_URL}/api/titles`,
         {
           titleName: titleName,
         }
       );
+
       setMessage(response.data);
-    } catch  {
+    } catch (error) {
+      console.error(error);
       setMessage("Error while adding title");
     }
   };
