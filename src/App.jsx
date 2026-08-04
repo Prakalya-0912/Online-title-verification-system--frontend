@@ -1,12 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./components/Home";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
-import TitleSubmission from "./components/TitleSubmission";
-import Result from "./components/Result";
-
+import Home from "./components/Home.jsx";
+import Login from "./components/Login.jsx";
+import Register from "./components/Register.jsx";
+import Dashboard from "./components/Dashboard.jsx";
+import TitleSubmission from "./components/TitleSubmission.jsx";
+import Result from "./components/Result.jsx";
 function App() {
   return (
     <BrowserRouter>
