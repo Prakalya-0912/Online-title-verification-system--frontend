@@ -5,7 +5,7 @@ import Login from "./components/Login.jsx";
 import Register from "./components/Register.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import TitleSubmission from "./components/TitleSubmission.jsx";
-import CheckTitle from "./components/Temp.jsx";   // <-- Add this line
+import CheckTitle from "./components/Checktitle.jsx";   // <-- Add this line
 import Result from "./components/Result.jsx";
 
 function App() {
