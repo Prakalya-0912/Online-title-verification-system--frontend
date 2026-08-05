@@ -3,59 +3,37 @@ import { useNavigate } from "react-router-dom";
 import "../styles/TitleSubmission.css";
 
 function TitleSubmission() {
-
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [domain, setDomain] = useState("");
   const [description, setDescription] = useState("");
 
-  const checkTitle = async () => {
-
+  const submitTitle = () => {
     if (title.trim() === "") {
-      alert("Enter Project Title");
+      alert("Please enter the project title.");
       return;
     }
 
-    try {
+    // Store details locally
+    localStorage.setItem(
+      "projectDetails",
+      JSON.stringify({
+        title,
+        domain,
+        description,
+      })
+    );
 
-      const response = await fetch("https://online-title-verification-system-backend.onrender.com/api/titles/verify", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          titleName: title
-        })
-      });
+    alert("Project details submitted successfully!");
 
-      const data = await response.text();
-
-      const result = {
-        title: title,
-        domain: domain,
-        description: description,
-        similarity: data.includes("Similar") ? "100%" : "0%",
-        status: data
-      };
-
-      localStorage.setItem("result", JSON.stringify(result));
-
-      navigate("/result");
-
-    } catch (error) {
-  console.error(error);
-  alert(error.message);
-}
-
+    // Navigate to Check Title page
+    navigate("/checktitle");
   };
 
   return (
-
     <div className="submit-container">
-
       <div className="submit-card">
-
         <h2>📝 Submit Project Title</h2>
 
         <input
@@ -84,16 +62,18 @@ function TitleSubmission() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <button onClick={checkTitle}>
-          Verify Title
-        </button>
+        <div className="button-group">
+          <button onClick={submitTitle}>
+            Submit Project
+          </button>
 
+          <button onClick={() => navigate("/checktitle")}>
+            Check Title
+          </button>
+        </div>
       </div>
-
     </div>
-
   );
-
 }
 
 export default TitleSubmission;
