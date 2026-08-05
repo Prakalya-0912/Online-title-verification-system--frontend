@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/CheckTitle.css";
 
 function CheckTitle() {
   const [title, setTitle] = useState("");
@@ -41,16 +42,18 @@ function CheckTitle() {
       );
 
       navigate("/result");
+
     } catch (error) {
-      alert("Verification Failed");
       console.error(error);
+      alert("Verification Failed");
     }
   };
 
   return (
-    <div className="submit-container">
-      <div className="submit-card">
-        <h2>Verify Project Title</h2>
+    <div className="check-container">
+      <div className="check-card">
+
+        <h2>🔍 Verify Project Title</h2>
 
         <input
           type="text"
@@ -59,9 +62,16 @@ function CheckTitle() {
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <button onClick={verifyTitle}>Verify Title</button>
+        <button onClick={verifyTitle}>
+          Verify Title
+        </button>
 
-        <h3>{message}</h3>
+        {message && (
+          <p className="message">
+            {message}
+          </p>
+        )}
+
       </div>
     </div>
   );
