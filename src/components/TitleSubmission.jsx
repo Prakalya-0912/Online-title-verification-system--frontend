@@ -9,31 +9,55 @@ function TitleSubmission() {
   const [domain, setDomain] = useState("");
   const [description, setDescription] = useState("");
 
-  const submitTitle = () => {
+  const submitTitle = async () => {
     if (title.trim() === "") {
       alert("Please enter the project title.");
       return;
     }
 
-    // Store details locally
-    localStorage.setItem(
-      "projectDetails",
-      JSON.stringify({
-        title,
-        domain,
-        description,
-      })
-    );
+    try {
+      const response = await fetch(
+        "https://online-title-verification-system-backend.onrender.com/api/titles",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            titleName: title,
+          }),
+        }
+      );
 
-    alert("Project details submitted successfully!");
+      const data = await response.text();
 
-    // Navigate to Check Title page
-    navigate("/checktitle");
+      alert(data);
+
+      // Save complete project details locally
+      localStorage.setItem(
+        "projectDetails",
+        JSON.stringify({
+          title,
+          domain,
+          description,
+        })
+      );
+
+      // Clear form after successful submission
+      setTitle("");
+      setDomain("");
+      setDescription("");
+
+    } catch (error) {
+      console.error(error);
+      alert("Failed to submit project.");
+    }
   };
 
   return (
     <div className="submit-container">
       <div className="submit-card">
+
         <h2>📝 Submit Project Title</h2>
 
         <input
@@ -71,6 +95,7 @@ function TitleSubmission() {
             Check Title
           </button>
         </div>
+
       </div>
     </div>
   );
